@@ -48,4 +48,4 @@ workflows:
     jobs:
       - semgrep-scan:
           context: 
-            - dev # has an env var called dev
+            - dev
