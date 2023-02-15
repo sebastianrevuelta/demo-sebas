@@ -31,7 +31,7 @@ public class TestClass extends HttpServlet {
 
         try {
             A a = new A();
-            a.secondCall(statement,sql,response);
+            a.suspiciousCall(statement,sql,response);
         } catch (java.sql.SQLException e) {
             if (org.owasp.benchmark.helpers.DatabaseHelper.hideSQLErrors) {
                 response.getWriter().println("Error processing request.");
