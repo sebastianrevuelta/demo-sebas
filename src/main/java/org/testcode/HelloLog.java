@@ -48,4 +48,16 @@ public class HelloLog {
             //Invalid Signing configuration / Couldn't convert Claims.
         }
    }
+   private static void bad2() {
+     try {
+        // ruleid: java-jwt-hardcoded-secret
+        Strign secret = System.getEnv("MY_VAR");
+        Algorithm algorithm = Algorithm.HMAC256(secret);
+        String token = JWT.create()
+            .withIssuer("auth0")
+            .sign(algorithm);
+        } catch (JWTCreationException exception){
+            //Invalid Signing configuration / Couldn't convert Claims.
+        }
+   }
 }

@@ -21,7 +21,7 @@ jobs:
 
     container:
       # A Docker image with Semgrep installed. Do not change this.
-      image: returntocorp/semgrep:1.14.0
+      image: returntocorp/semgrep:1.17.1
 
     # Skip any PR created by dependabot to avoid permission issues:
     if: (github.actor != 'dependabot[bot]')
