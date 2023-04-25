@@ -1,3 +1,2 @@
 Basically it has two flags:
-* To run Semgrep Pro Engine with interfile analysis, run semgrep --pro --config=pro.yaml .
-* To run Semgrep Pro Engine with interprocedural analysis, run semgrep --pro-intrafile --config=pro.yaml .
+* There is finding for a PRO rule: formatted-sql-string-deepsemgrep
