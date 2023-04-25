@@ -7,10 +7,10 @@ public class App3
 
     static String secret = "secret";
 
-    private static void bad1() {
+    private static void bad1(String secretKey) {
         try {
             // ruleid: java-jwt-hardcoded-secret
-            Algorithm algorithm = Algorithm.HMAC256("secret");
+            Algorithm algorithm = Algorithm.HMAC256(secretKey);
             String token = JWT.create()
                 .withIssuer("auth0")
                 .sign(algorithm);
