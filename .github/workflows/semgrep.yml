@@ -36,4 +36,4 @@ jobs:
           # Generate a token from Semgrep Cloud Platform > Settings
           # and add it to your GitHub secrets.
           SEMGREP_APP_TOKEN: ${{ secrets.SEMGREP_APP_TOKEN }}
-          SEMGREP_REPO_NAME: ${{ env.SEMGREP_REPO_NAME }}
+          SEMGREP_REPO_NAME: 'from-github/test-semgrep-pro'
