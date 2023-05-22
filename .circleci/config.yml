@@ -18,7 +18,7 @@ jobs:
             echo ${CIRCLE_PULL_REQUEST##*/}
             if [ ${CIRCLE_PULL_REQUEST##*/} ]; then
               echo "this is a pull request"
-              echo "My parameter value is ${{ parameters.default_branch }}"
+              echo "My parameter value is << parameters.default_branch >>"
               echo 'export SEMGREP_COMMIT=${CIRCLE_SHA1}' >> $BASH_ENV
               echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> $BASH_ENV
               echo 'export SEMGREP_JOB_URL=${CIRCLE_BUILD_URL}' >> $BASH_ENV
