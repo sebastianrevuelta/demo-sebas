@@ -49,12 +49,12 @@ workflows:
       - semgrep-full-scan:
           filters:
             branches:
-              only: master
+              only: main
           context:
             - dev
       - semgrep-pr-scan:
           filters:
             branches:
-              ignore: master          
+              ignore: main          
           context:
             - dev
