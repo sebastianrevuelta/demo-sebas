@@ -25,7 +25,7 @@ jobs:
           name: "Semgrep pull request scan"
           command: |
             echo "This is a pull request semgrep scan"
-            echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> $BASH_ENV
+            #echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> $BASH_ENV
             echo $SEMGREP_APP_TOKEN
             git fetch origin "+refs/heads/*:refs/remotes/origin/*"
             semgrep ci
