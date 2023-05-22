@@ -12,6 +12,12 @@ jobs:
             PR_URL=$CIRCLE_PULL_REQUEST
             PR_ID=${PR_URL##*/}
             echo "Pull Request ID: $PR_ID"
+            echo "CIRCLE_PR_NUMBER: $CIRCLE_PR_NUMBER"
+            echo "CIRCLE_BUILD_URL: $CIRCLE_BUILD_URL"
+            echo "CIRCLE_PREVIOUS_BUILD_NUM: $CIRCLE_PREVIOUS_BUILD_NUM"
+            echo "pipeline.git.branch: << pipeline.git.branch >>"
+            echo "pipeline.trigger_source: << pipeline.trigger_source >>"
+            echo "pipeline.git.revision: << pipeline.git.revision >>"
             semgrep ci
   semgrep-diff-scan-feature-branch:
     parameters:
