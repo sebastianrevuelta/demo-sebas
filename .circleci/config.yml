@@ -4,7 +4,7 @@ jobs:
     parameters:
       default_branch:
         type: string
-        default: master
+        default: main
     environment:
       SEMGREP_BASELINE_REF: << parameters.default_branch >>
     docker:
@@ -24,7 +24,7 @@ jobs:
               echo 'export SEMGREP_REPO_NAME=${CIRCLE_PROJECT_REPONAME}' >> $BASH_ENV
               echo 'export SEMGREP_REPO_URL=${CIRCLE_REPOSITORY_URL}' >> $BASH_ENV
               echo 'export SEMGREP_BRANCH=${CIRCLE_BRANCH}' >> $BASH_ENV
-              echo 'export SEMGREP_BASELINE_REF= "master"' >> $BASH_ENV
+              echo 'export SEMGREP_BASELINE_REF= "main"' >> $BASH_ENV
               echo 'export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' >> $BASH_ENV
               echo ${CIRCLE_SHA1}
               echo ${CIRCLE_PULL_REQUEST##*/}
@@ -37,7 +37,7 @@ jobs:
               semgrep ci
             else
               echo "this is not a pull request"
-              echo 'export SEMGREP_BASELINE_REF = "origin/master"' >> $BASH_ENV
+              echo 'export SEMGREP_BASELINE_REF = "origin/main"' >> $BASH_ENV
               echo 'export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' >> $BASH_ENV
               echo 'export SEMGREP_COMMIT=$CIRCLE_SHA1' >> $BASH_ENV
               # echo 'export SEMGREP_PR_ID=${CIRCLE_PULL_REQUEST##*/}' >> $BASH_ENV
