@@ -1,16 +1,19 @@
 version: 2.1
 jobs:
-  semgrep-full-scan:
+  semgrep-full-scan-main-branch:
     docker:
       - image: returntocorp/semgrep
     steps:
       - checkout
       - run: 
-          name: "Semgrep full scan"
+          name: "Semgrep full scan to main branch"
           command: |
             echo "This is a semgrep full scan"
+            PR_URL=$CIRCLE_PULL_REQUEST
+            PR_ID=${PR_URL##*/}
+            echo "Pull Request ID: $PR_ID"
             semgrep ci
-  semgrep-pr-scan:
+  semgrep-full-scan-feature-branch:
     parameters:
       default_branch:
         type: string
@@ -22,7 +25,7 @@ jobs:
     steps:
       - checkout
       - run: 
-          name: "Semgrep pull request scan"
+          name: "Semgrep full scan to feature branch"
           command: |
             echo "This is a pull request semgrep scan"
             git fetch origin "+refs/heads/*:refs/remotes/origin/*"
@@ -31,13 +34,13 @@ workflows:
   version: 2
   scan:
     jobs:
-      - semgrep-full-scan:
+      - semgrep-full-scan-main-branch:
           filters:
             branches:
               only: main
           context:
             - dev
-      - semgrep-pr-scan:
+      - semgrep-full-scan-feature-branch:
           filters:
             branches:
               ignore: main          
