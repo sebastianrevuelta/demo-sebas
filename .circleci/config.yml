@@ -6,7 +6,7 @@ jobs:
         type: string
         default: main
     environment:
-      #SEMGREP_BASELINE_REF: << parameters.default_branch >>
+      SEMGREP_BASELINE_REF: << parameters.default_branch >>
     docker:
       - image: returntocorp/semgrep
     steps:
@@ -25,7 +25,7 @@ jobs:
               echo 'export SEMGREP_REPO_NAME=${CIRCLE_PROJECT_REPONAME}' >> $BASH_ENV
               echo 'export SEMGREP_REPO_URL=${CIRCLE_REPOSITORY_URL}' >> $BASH_ENV
               echo 'export SEMGREP_BRANCH=${CIRCLE_BRANCH}' >> $BASH_ENV
-              echo 'export SEMGREP_BASELINE_REF=<< parameters.default_branch >>' >> $BASH_ENV
+              #echo 'export SEMGREP_BASELINE_REF=<< parameters.default_branch >>' >> $BASH_ENV
               echo 'export SEMGREP_APP_TOKEN=$SEMGREP_APP_TOKEN' >> $BASH_ENV
               echo ${CIRCLE_SHA1}
               echo ${CIRCLE_PULL_REQUEST##*/}
