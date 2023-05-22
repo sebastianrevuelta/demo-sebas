@@ -8,12 +8,12 @@ jobs:
       - run: 
           name: "Semgrep full scan to main branch"
           command: |
-            echo "This is a semgrep full scan"
+            echo "This is a semgrep full scan to main branch"
             PR_URL=$CIRCLE_PULL_REQUEST
             PR_ID=${PR_URL##*/}
             echo "Pull Request ID: $PR_ID"
             semgrep ci
-  semgrep-full-scan-feature-branch:
+  semgrep-diff-scan-feature-branch:
     parameters:
       default_branch:
         type: string
@@ -27,7 +27,7 @@ jobs:
       - run: 
           name: "Semgrep full scan to feature branch"
           command: |
-            echo "This is a pull request semgrep scan"
+            echo "This is a diff scan to feature branch"
             git fetch origin "+refs/heads/*:refs/remotes/origin/*"
             semgrep ci
 workflows:
@@ -40,7 +40,7 @@ workflows:
               only: main
           context:
             - dev
-      - semgrep-full-scan-feature-branch:
+      - semgrep-diff-scan-feature-branch:
           filters:
             branches:
               ignore: main          
