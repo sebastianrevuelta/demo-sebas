@@ -9,10 +9,12 @@ jobs:
           name: "Semgrep full scan to main branch"
           command: |
             apk add curl
+            apk add jq
             echo "This is a semgrep full scan to main branch"
             PR_URL=$CIRCLE_PULL_REQUEST
             PR_ID=${PR_URL##*/}
-            echo "Pull Request ID: $PR_ID"
+            echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
+            echo "CIRCLE_PULL_REQUEST##*/: ${CIRCLE_PULL_REQUEST##*/}"
             echo "CIRCLE_PR_NUMBER: $CIRCLE_PR_NUMBER"
             echo "CIRCLE_BUILD_URL: $CIRCLE_BUILD_URL"
             echo "CIRCLE_PREVIOUS_BUILD_NUM: $CIRCLE_PREVIOUS_BUILD_NUM"
@@ -25,6 +27,7 @@ jobs:
             PREVIOUS_BUILD=$(curl --header "Circle-Token: CIRCLECI_API_TOKEN" \
                      --url "https://circleci.com/api/v2/project/github/r2c-CSE/test-semgrep-pro/pipeline?branch=main&filter=successful&limit=2")
             # Extract the pull request ID from the previous build details
+            echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
             PREVIOUS_PR_ID=$(echo "$PREVIOUS_BUILD" | jq -r ".items[1].pull_requests[0].number")
             echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
             semgrep ci
