@@ -25,15 +25,17 @@ jobs:
             LATEST_COMMIT=$(git rev-parse main)
             echo "LATEST_COMMIT: $LATEST_COMMIT"
             echo "CIRCLECI_API_TOKEN: $CIRCLECI_API_TOKEN"
+
             # Make a request to the CircleCI API to fetch the previous build details
-            curl --url "https://circleci.com/api/v2/project/gh/r2c-CSE/test-semgrep-pro"
             PREVIOUS_BUILD=$(curl --url "https://circleci.com/api/v2/project/gh/r2c-CSE/test-semgrep-pro/pipeline?branch=main&filter=successful&limit=2")
             # Extract the pull request ID from the previous build details
             echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
             PREVIOUS_PR_ID=$(echo "$PREVIOUS_BUILD" | jq -r ".items[0].vcs.commit.subject")
             echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
-            PREVIOUS_PR_ID=${PREVIOUS_PR_ID:18:3}
+            PREVIOUS_PR_ID=${PREVIOUS_PR_ID:19:3} # It must be improved
+            echo 'export SEMGREP_PR_ID=${PREVIOUS_PR_ID}' >> $BASH_ENV 
             echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
+            echo "Previous Pull Request ID: $SEMGREP_PR_ID"
             semgrep ci
   semgrep-diff-scan-feature-branch:
     parameters:
