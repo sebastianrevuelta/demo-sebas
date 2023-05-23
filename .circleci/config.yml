@@ -8,8 +8,7 @@ jobs:
       - run: 
           name: "Semgrep full scan to main branch"
           command: |
-            apt-get update
-            apt-get install -y curl
+            apk add curl
             echo "This is a semgrep full scan to main branch"
             PR_URL=$CIRCLE_PULL_REQUEST
             PR_ID=${PR_URL##*/}
