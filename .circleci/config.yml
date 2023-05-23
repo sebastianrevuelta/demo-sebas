@@ -23,8 +23,10 @@ jobs:
             echo "pipeline.git.revision: << pipeline.git.revision >>"
             # Get the latest commit hash on the main branch
             LATEST_COMMIT=$(git rev-parse main)
+            echo "LATEST_COMMIT: $LATEST_COMMIT"
+            echo "CIRCLECI_API_TOKEN: $CIRCLECI_API_TOKEN"
             # Make a request to the CircleCI API to fetch the previous build details
-            PREVIOUS_BUILD=$(curl --header "Circle-Token: CIRCLECI_API_TOKEN" \
+            PREVIOUS_BUILD=$(curl --header "Circle-Token: $CIRCLECI_API_TOKEN" \
                      --url "https://circleci.com/api/v2/project/github/r2c-CSE/test-semgrep-pro/pipeline?branch=main&filter=successful&limit=2")
             # Extract the pull request ID from the previous build details
             echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
