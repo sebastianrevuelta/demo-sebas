@@ -32,7 +32,7 @@ jobs:
             # Make a request to the CircleCI API to fetch the previous build details
             PREVIOUS_BUILD=$(curl --url "https://circleci.com/api/v2/project/gh/r2c-CSE/test-semgrep-pro/pipeline?branch=main&filter=successful&limit=2")
             # Extract the pull request ID from the previous build details
-            echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
+            # echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
             PREVIOUS_PR_ID=$(echo "$PREVIOUS_BUILD" | jq -r ".items[0].vcs.commit.subject")
             echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
             PREVIOUS_PR_ID=${PREVIOUS_PR_ID:19:3} # It must be improved
