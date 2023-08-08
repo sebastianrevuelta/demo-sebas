@@ -9,35 +9,6 @@ jobs:
           name: "Semgrep full scan to main branch"
           command: |
             echo "This is a semgrep full scan to main branch"
-            apk add curl
-            apk add jq
-            
-            ### Unfortunately, there is no info for the next vars in a push event
-            echo "CIRCLE_PULL_REQUEST: $CIRCLE_PULL_REQUEST"
-            echo "CIRCLE_PULL_REQUEST##*/: ${CIRCLE_PULL_REQUEST##*/}"
-            echo "CIRCLE_PR_NUMBER: $CIRCLE_PR_NUMBER"
-            echo "CIRCLE_PREVIOUS_BUILD_NUM: $CIRCLE_PREVIOUS_BUILD_NUM"
-            
-            ### There is info for next vars, but not useful to get PR_ID
-            echo "CIRCLE_BUILD_URL: $CIRCLE_BUILD_URL"
-            echo "pipeline.git.branch: << pipeline.git.branch >>"
-            echo "pipeline.trigger_source: << pipeline.trigger_source >>"
-            echo "pipeline.git.revision: << pipeline.git.revision >>"
-            # Get the latest commit hash on the main branch
-            LATEST_COMMIT=$(git rev-parse main)
-            echo "LATEST_COMMIT: $LATEST_COMMIT"
-            echo "CIRCLECI_API_TOKEN: $CIRCLECI_API_TOKEN"
-
-            ### That is the only way to get the PR_ID
-            # Make a request to the CircleCI API to fetch the previous build details
-            PREVIOUS_BUILD=$(curl --url "https://circleci.com/api/v2/project/gh/r2c-CSE/test-semgrep-pro/pipeline?branch=main&filter=successful&limit=2")
-            # Extract the pull request ID from the previous build details
-            # echo "PREVIOUS_BUILD: $PREVIOUS_BUILD"
-            PREVIOUS_PR_ID=$(echo "$PREVIOUS_BUILD" | jq -r ".items[0].vcs.commit.subject")
-            echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
-            PREVIOUS_PR_ID=${PREVIOUS_PR_ID:19:3} # It must be improved
-            echo 'export SEMGREP_PR_ID=${PREVIOUS_PR_ID:19:3}' >> $BASH_ENV
-            echo "Previous Pull Request ID: $PREVIOUS_PR_ID"
             semgrep ci
   semgrep-diff-scan-feature-branch:
     parameters:
